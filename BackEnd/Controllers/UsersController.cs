@@ -118,7 +118,7 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
-    [HttpPut("{id:length(24)}"), Authorize(Roles = "Admin")]
+    [HttpPut("{id:length(24)}")]
     public async Task<IActionResult> Update(string id, User updatedUser)
     {
         var user = await _usersService.GetAsync(id);
@@ -135,7 +135,7 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id:length(24)}"), Authorize(Roles = "Admin")]
+    [HttpDelete("{id:length(24)}")]
     public async Task<IActionResult> Delete(string id)
     {
         var user = await _usersService.GetAsync(id);

@@ -30,9 +30,6 @@ public class BooksService
     public async Task<List<Book>> GetByNameAsync(string name) =>
         await _booksCollection.Find(book => book.Names.Any(bName => bName.Contains(name))).ToListAsync();
 
-    public async Task<List<Book>> GetByISBNAsync(string isbn) =>
-        await _booksCollection.Find(book => book.Names.Any(bName => bName.Contains(isbn))).ToListAsync();
-
     public async Task<List<Book>> GetByGenreAsync(string genre) =>
         await _booksCollection.Find(book => book.GenresId.Contains(genre)).ToListAsync();
 
