@@ -46,7 +46,7 @@ public class BooksController : ControllerBase
     }
 
     [HttpGet("isbn/{isbn}")]
-    public async Task<List<Book>> GetByISBN(string isbn)
+    public async Task<Book> GetByISBN(string isbn)
     {
         var book = await _booksService.GetByISBNAsync(isbn);
         book.Authors = GetBookAuthors(book.AuthorsId);
