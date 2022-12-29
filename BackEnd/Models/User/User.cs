@@ -13,13 +13,11 @@ public class User
 
     [JsonIgnore]
     [BsonElement("Subscribes")]
-    public List<UserSubscribe> SubscribesId { get; set; } = null!;
+    public List<DBUserSubscribe> SubscribesId { get; set; } = null!;
 
     [BsonIgnore]
-    public List<Subscribe> Subscribes { get; set; } = null!;
+    public List<UserSubscribe> Subscribes { get; set; } = null!;
 
-    //[BsonElement("Email")]
-    //[JsonPropertyName("Email")]
     public string Email { get; set; } = null!;
 
     [BsonRepresentation(BsonType.Binary)]

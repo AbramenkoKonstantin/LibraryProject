@@ -45,6 +45,15 @@ public class BooksController : ControllerBase
         return books;
     }
 
+    [HttpGet("isbn/{isbn}")]
+    public async Task<List<Book>> GetByISBN(string isbn)
+    {
+        var book = await _booksService.GetByISBNAsync(isbn);
+        book.Authors = GetBookAuthors(book.AuthorsId);
+        book.Genres = GetBookGenres(book.GenresId);
+        return book;
+    }
+
     [HttpGet("author/{id:length(24)}")]
     public async Task<List<Book>> GetByAuthor(string id)
     {

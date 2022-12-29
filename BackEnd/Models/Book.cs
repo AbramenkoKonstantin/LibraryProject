@@ -10,8 +10,6 @@ public class Book
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
-    //[BsonElement("Names")]
-    //[JsonPropertyName("Names")]
     public List<string> Names { get; set; } = null!;
 
     [JsonIgnore]

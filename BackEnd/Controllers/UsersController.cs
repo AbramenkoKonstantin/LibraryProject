@@ -76,13 +76,16 @@ public class UsersController : ControllerBase
             Email = request.Email,
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt,
-            SubscribesId = new List<UserSubscribe>(),
-            Subscribes = new List<Subscribe>()
+            SubscribesId = new List<DBUserSubscribe>(),
+            Subscribes = new List<UserSubscribe>(),
+            AccessToken = _tokenService.GenerateAccessToken(request.Email),
+            RefreshToken = _tokenService.GenerateRefreshToken(),
+            Vallet = 0,
         };
 
         await _usersService.CreateAsync(user);
 
-        return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
+        return Ok(user);
     }
 
     [AllowAnonymous]
@@ -147,10 +150,32 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
-    private List<Subscribe> GetUserSubscribes(List<UserSubscribe> subscribesId)
+    private List<UserSubscribe> GetUserSubscribes(List<DBUserSubscribe> subscribesId)
     {
-        return subscribesId
+        var subscribeList = subscribesId
                     .Select(subscribe => _subscribesService.GetAsync(subscribe.SubscribeId!).Result!)
                     .ToList();
+
+        var userSubscribeList = subscribeList
+            .Select(sub => {
+                var subExp = subscribesId
+                    .Where(expireSub => expireSub.SubscribeId == sub.Id)
+                    .Single()
+                    .Expires;
+                return new UserSubscribe()
+                {
+                    Id = sub.Id,
+                    Name = sub.Name,
+                    BooksId = sub.BooksId,
+                    Books = sub.Books,
+                    Description = sub.Description,
+                    Expires = subExp,
+                    ImageLink = sub.ImageLink,
+                    Price = sub.Price
+                };
+            })
+            .ToList();
+
+        return userSubscribeList;
     }
 }

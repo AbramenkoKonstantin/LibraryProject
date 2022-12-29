@@ -10,7 +10,5 @@ public class Author
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
-    //[BsonElement("Name")]
-    //[JsonPropertyName("Name")]
     public string Name { get; set; } = null!;
 }

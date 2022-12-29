@@ -3,11 +3,8 @@ using MongoDB.Bson;
 
 namespace BackEnd.Models.User
 {
-    public class DBUserSubscribe
+    public class UserSubscribe : Subscribe
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? SubscribeId { get; set; }
-
         public DateTime? Expires { get; set; } = null!;
     }
 }

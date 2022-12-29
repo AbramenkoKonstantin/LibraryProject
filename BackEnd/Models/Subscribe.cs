@@ -10,8 +10,6 @@ public class Subscribe
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
-    //[BsonElement("Name")]
-    //[JsonPropertyName("Name")]
     public string Name { get; set; } = null!;
 
     public string Description { get; set; } = null!;
